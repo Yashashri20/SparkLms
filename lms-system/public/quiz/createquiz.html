@@ -1,0 +1,319 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Quiz</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+        .quiz-form { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; }
+        input, select { width: 100%; padding: 8px; margin: 8px 0; }
+        button { padding: 10px 15px; background: #28a745; color: #fff; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="quiz-form">
+        <h2>Create Quiz (5 Questions)</h2>
+        <form id="quizForm">
+            <input type="text" name="title" placeholder="Quiz Title" required>
+            <input type="text" name="standard" placeholder="Standard/Class" required>
+            <div id="questions"></div>
+            <button type="submit">Save Quiz</button>
+        </form>
+    </div>
+
+    <script>
+        const questionsContainer = document.getElementById('questions');
+        for (let i = 1; i <= 5; i++) {
+            questionsContainer.innerHTML += `
+                <h3>Question ${i}</h3>
+                <input type="text" name="q${i}" placeholder="Enter question ${i}" required>
+                <input type="text" name="opt${i}a" placeholder="Option A" required>
+                <input type="text" name="opt${i}b" placeholder="Option B" required>
+                <input type="text" name="opt${i}c" placeholder="Option C" required>
+                <input type="text" name="opt${i}d" placeholder="Option D" required>
+                <select name="correct${i}" required>
+                    <option value="">Correct Option</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                </select>
+            `;
+        }
+
+        document.getElementById('quizForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const quiz = {
+                title: formData.get('title'),
+                standard: formData.get('standard'),
+                questions: []
+            };
+            for (let i = 1; i <= 5; i++) {
+                quiz.questions.push({
+                    question: formData.get(`q${i}`),
+                    options: [
+                        formData.get(`opt${i}a`),
+                        formData.get(`opt${i}b`),
+                        formData.get(`opt${i}c`),
+                        formData.get(`opt${i}d`)
+                    ],
+                    correct: formData.get(`correct${i}`)
+                });
+            }
+
+            const res = await fetch('http://localhost:5000/api/quiz/createQuiz', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(quiz)
+            });
+            const data = await res.json();
+            alert(data.message);
+        });
+    </script>
+</body>
+</html> -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Quiz</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+        .quiz-form { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; }
+        input, select { width: 100%; padding: 8px; margin: 8px 0; }
+        button { padding: 10px 15px; background: #28a745; color: #fff; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="quiz-form">
+        <h2>Create Quiz (5 Questions)</h2>
+        <form id="quizForm">
+            <input type="text" name="title" placeholder="Quiz Title" required>
+            <input type="text" name="standard" placeholder="Standard/Class" required>
+            <div id="questions"></div>
+            <button type="submit">Save Quiz</button>
+        </form>
+    </div>
+
+    <script>
+        // Generate 5 question fields dynamically
+        const questionsContainer = document.getElementById('questions');
+        for (let i = 1; i <= 5; i++) {
+            questionsContainer.innerHTML += `
+                <h3>Question ${i}</h3>
+                <input type="text" name="q${i}" placeholder="Enter question ${i}" required>
+                <input type="text" name="opt${i}a" placeholder="Option A" required>
+                <input type="text" name="opt${i}b" placeholder="Option B" required>
+                <input type="text" name="opt${i}c" placeholder="Option C" required>
+                <input type="text" name="opt${i}d" placeholder="Option D" required>
+                <select name="correct${i}" required>
+                    <option value="">Correct Option</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                </select>
+            `;
+        }
+
+        // Handle form submit
+        document.getElementById('quizForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            // Build quiz object
+            const quiz = {
+                title: formData.get('title'),
+                standard: formData.get('standard'),
+                questions: []
+            };
+
+            // Add questions
+            for (let i = 1; i <= 5; i++) {
+                quiz.questions.push({
+                    question: formData.get(`q${i}`),
+                    options: [
+                        formData.get(`opt${i}a`),
+                        formData.get(`opt${i}b`),
+                        formData.get(`opt${i}c`),
+                        formData.get(`opt${i}d`)
+                    ],
+                    correct: formData.get(`correct${i}`)
+                });
+            }
+
+            console.log("Sending Quiz Data:", quiz); // Debugging check
+
+            try {
+                const res = await fetch('http://localhost:5000/api/quiz/createQuiz', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(quiz) // Always send valid JSON
+                });
+
+                const data = await res.json();
+                alert(data.message);
+            } catch (error) {
+                alert("Error saving quiz");
+                console.error("Error:", error);
+            }
+        });
+    </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Quiz</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(120deg, #4f46e5, #9333ea);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      padding: 40px 20px;
+    }
+
+    .quiz-form {
+      background-color: #ffffff;
+      border-radius: 12px;
+      max-width: 700px;
+      width: 100%;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .quiz-form h2 {
+      text-align: center;
+      color: #4f46e5;
+      margin-bottom: 25px;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 10px 14px;
+      margin: 8px 0 16px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1em;
+    }
+
+    select {
+      background-color: #f9f9f9;
+    }
+
+    button {
+      width: 100%;
+      background: linear-gradient(120deg, #4f46e5, #9333ea);
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    h3 {
+      color: #333;
+      margin-top: 20px;
+      font-size: 1.1em;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .quiz-form {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-form">
+    <h2>📝 Create Quiz (5 Questions)</h2>
+    <form id="quizForm">
+      <input type="text" name="title" placeholder="Quiz Title" required />
+      <input type="text" name="standard" placeholder="Standard/Class" required />
+      <div id="questions"></div>
+      <button type="submit">Save Quiz</button>
+    </form>
+  </div>
+
+  <script>
+    const questionsContainer = document.getElementById('questions');
+    for (let i = 1; i <= 5; i++) {
+      questionsContainer.innerHTML += `
+        <h3>Question ${i}</h3>
+        <input type="text" name="q${i}" placeholder="Enter question ${i}" required>
+        <input type="text" name="opt${i}a" placeholder="Option A" required>
+        <input type="text" name="opt${i}b" placeholder="Option B" required>
+        <input type="text" name="opt${i}c" placeholder="Option C" required>
+        <input type="text" name="opt${i}d" placeholder="Option D" required>
+        <select name="correct${i}" required>
+          <option value="">Correct Option</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
+        </select>
+      `;
+    }
+
+    document.getElementById('quizForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const quiz = {
+        title: formData.get('title'),
+        standard: formData.get('standard'),
+        questions: []
+      };
+
+      for (let i = 1; i <= 5; i++) {
+        quiz.questions.push({
+          question: formData.get(`q${i}`),
+          options: [
+            formData.get(`opt${i}a`),
+            formData.get(`opt${i}b`),
+            formData.get(`opt${i}c`),
+            formData.get(`opt${i}d`)
+          ],
+          correct: formData.get(`correct${i}`)
+        });
+      }
+
+      try {
+        const res = await fetch('http://localhost:5000/api/quiz/createQuiz', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(quiz)
+        });
+
+        const data = await res.json();
+        alert(data.message);
+      } catch (error) {
+        alert("Error saving quiz");
+        console.error("Error:", error);
+      }
+    });
+  </script>
+</body>
+</html>
