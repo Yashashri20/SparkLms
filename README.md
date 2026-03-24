@@ -25,7 +25,7 @@ This project focuses on providing a **simple, user-friendly, and efficient syste
 **Frontend:**
 
 * HTML
-* CSS (Bootstrap)
+* CSS 
 * JavaScript
 
 **Backend:**
